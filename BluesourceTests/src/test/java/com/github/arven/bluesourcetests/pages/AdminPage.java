@@ -70,22 +70,24 @@ public class AdminPage {
         return PageFactory.initElements(this.driver, AdminPage.class); 
     }
     
-    public boolean search(String value) {
-        this.search.sendKeys(value);
+    public EmployeePage search(String firstname, String lastname) {
+        String name = firstname + " " + lastname;
+        this.search.sendKeys(name);
         
-        WebDriverWait wait = new WebDriverWait(driver, 60);        
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#resource-content .ng-binding")));
-        List<WebElement> all = driver.findElements(By.cssSelector("#resource-content a.ng-binding"));
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#resource-content .ng-binding")));
         
-        for(Iterator<WebElement> it = all.iterator(); it.hasNext(); ) {
-            WebElement first = it.next();
-            WebElement last = it.next();
-            if(value.equalsIgnoreCase(first.getText() + " " + last.getText())) {
-                return true;
+        Iterator<WebElement> elements = driver.findElements(By.cssSelector("#resource-content a.ng-binding")).iterator();
+        for(; elements.hasNext();) {
+            WebElement first = elements.next();
+            WebElement last = elements.next();
+            if(name.equalsIgnoreCase(first.getText() + " " + last.getText())) {
+                first.click();
+                return PageFactory.initElements(this.driver, EmployeePage.class);
             }
         }
         
-        return false;
+        return null;
     }
         
 }

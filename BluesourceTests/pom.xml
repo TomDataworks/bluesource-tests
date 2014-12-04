@@ -10,6 +10,7 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <webdriver.chrome.driver>C:\Users\brian.becker\Software\bin\chromedriver.exe</webdriver.chrome.driver>
+        <webdriver.ie.driver>C:\Users\brian.becker\Software\bin\iedriverserver.exe</webdriver.ie.driver>
     </properties>
     <dependencies>
         <dependency>
@@ -33,7 +34,11 @@
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
+                        <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
                     </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/java/com/github/arven/bluesourcetests/BlueSourceTestSuite.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
