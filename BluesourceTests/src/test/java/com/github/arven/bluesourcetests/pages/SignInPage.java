@@ -5,10 +5,11 @@
  */
 package com.github.arven.bluesourcetests.pages;
 
+import com.github.arven.by.CustomPageFactory;
+import com.github.arven.by.OtherFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  *
@@ -23,17 +24,22 @@ public class SignInPage {
     @FindBy(id = "employee_password")
     private WebElement password;
     
+    @OtherFindBy(with = com.github.arven.by.NullLocator.class, using = "anything")
+    private WebElement string;
+    
     public SignInPage(WebDriver driver) {
         this.driver = driver;
         driver.get("http://bluesourcestaging.herokuapp.com/login");
     }
     
     public AdminPage login(String login_username, String login_password) {
+        //this.string.sendKeys("something");
+        
         this.username.sendKeys(login_username);
         this.password.sendKeys(login_password);
         this.password.submit();
-        
-        return PageFactory.initElements(this.driver, AdminPage.class); 
+                
+        return CustomPageFactory.initElements(this.driver, AdminPage.class); 
     }
     
 }

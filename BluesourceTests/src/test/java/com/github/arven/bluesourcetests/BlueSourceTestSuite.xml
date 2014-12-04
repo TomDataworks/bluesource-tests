@@ -19,24 +19,24 @@
     -->
     
     <!-- <test name="com.github.arven.bluesourcetests firefox">
-        <parameter name="browser" value="firefox" />
-        <packages>
-            <package name="com.github.arven.bluesourcetests"/>
-        </packages>
-    </test>
-    
-    <test name="com.github.arven.bluesourcetests chromium">
-        <parameter name="browser" value="chromium" />
+        <parameter name="browser" value="org.openqa.selenium.firefox.FirefoxDriver" />
         <packages>
             <package name="com.github.arven.bluesourcetests"/>
         </packages>
     </test> -->
     
-    <test name="com.github.arven.bluesourcetests ie">
-        <parameter name="browser" value="org.openqa.selenium.ie.InternetExplorerDriver" />
+    <test name="com.github.arven.bluesourcetests chromium">
+        <parameter name="browser" value="org.openqa.selenium.chrome.ChromeDriver" />
         <packages>
             <package name="com.github.arven.bluesourcetests"/>
         </packages>
     </test>
+    
+    <!-- <test name="com.github.arven.bluesourcetests ie">
+        <parameter name="browser" value="org.openqa.selenium.ie.InternetExplorerDriver" />
+        <packages>
+            <package name="com.github.arven.bluesourcetests"/>
+        </packages>
+    </test> -->
 
 </suite>

@@ -8,6 +8,8 @@ package com.github.arven.bluesourcetests;
 import com.github.arven.bluesourcetests.pages.AdminPage;
 import com.github.arven.bluesourcetests.pages.EmployeePage;
 import com.github.arven.bluesourcetests.pages.SignInPage;
+import com.github.arven.by.CustomElementLocatorFactory;
+import com.github.arven.by.CustomPageFactory;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -59,14 +61,15 @@ public class TestAddEmployee {
     
     @Test
     public void canLogin() {
-        SignInPage page = PageFactory.initElements(driver, SignInPage.class);
+        //SignInPage page = PageFactory.initElements(driver, SignInPage.class);
+        SignInPage page = CustomPageFactory.initElements(driver, SignInPage.class);
         AdminPage admin = page.login("company.admin", "anything");
         admin.logout();
     }
     
     @Test
     public void canAddEmployee() {
-        SignInPage page = PageFactory.initElements(driver, SignInPage.class);
+        SignInPage page = CustomPageFactory.initElements(driver, SignInPage.class);
         AdminPage admin = page.login("company.admin", "anything");
         Random r = new Random();
         String username = UUID.randomUUID().toString();
