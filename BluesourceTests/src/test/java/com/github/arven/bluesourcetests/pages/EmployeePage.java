@@ -5,10 +5,10 @@
  */
 package com.github.arven.bluesourcetests.pages;
 
-import com.github.arven.by.CustomPageFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 /**
  *
@@ -27,6 +27,6 @@ public class EmployeePage {
     
     public AdminPage back() {
         this.back.click();
-        return CustomPageFactory.initElements(this.driver, AdminPage.class); 
+        return PageFactory.initElements(this.driver, AdminPage.class); 
     }
 }
