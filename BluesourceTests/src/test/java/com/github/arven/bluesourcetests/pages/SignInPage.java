@@ -14,18 +14,15 @@ import org.openqa.selenium.support.PageFactory;
  *
  * @author brian.becker
  */
-public class SignInPage {
-    private final WebDriver driver;
-    
+public class SignInPage extends BaseWebPage {   
     @FindBy(id = "employee_username")
     private WebElement username;
     
     @FindBy(id = "employee_password")
     private WebElement password;
     
-    public SignInPage(WebDriver driver) {
-        this.driver = driver;
-        driver.get("http://bluesourcestaging.herokuapp.com/login");
+    public SignInPage ( WebDriver driver ) {
+        super(driver);
     }
     
     public AdminPage login(String login_username, String login_password) {       
