@@ -18,7 +18,7 @@ public class AddTitlePage extends BaseWebPage
     }
 
     public TitlesPage AddTitle(String name) {
-        if (SyncElement (By.id("title_name"))) {
+        if (SyncElement (title_name)) {
             title_name.sendKeys (name);
             title_name.submit ();
         }

@@ -34,7 +34,7 @@ public class AddEmployeePage extends BaseWebPage
         }
 
         public EmployeesPage AddEmployee(String name, String first, String last) {
-                SyncElement (By.id("employee_username"));
+                SyncElement (employee_username);
                 this.employee_username.click ();
                 this.employee_username.sendKeys (name);
                 this.employee_first_name.sendKeys (first);

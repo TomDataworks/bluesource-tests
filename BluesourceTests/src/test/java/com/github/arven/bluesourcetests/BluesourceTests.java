@@ -88,63 +88,63 @@ public class BluesourceTests {
     @Test
     public void TestLoginLogout()
     {
-            LoginPage page = new LoginPage (driver);
-            page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            Assert.assertTrue (nav.HasLogoutLink ());
-            page = nav.DoLogout();
-            Assert.assertTrue (page.HasLoginLink ());
+        LoginPage page = new LoginPage (driver);
+        page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        Assert.assertTrue (nav.HasLogoutLink ());
+        page = nav.DoLogout();
+        Assert.assertTrue (page.HasLoginLink ());
     }
     
     @Test
     public void TestAddEmployee()
     {
-            LoginPage page = new LoginPage (driver);
-            EmployeesPage empl = page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            Assert.assertTrue (nav.HasLogoutLink ());
-            AddEmployeePage newempl = empl.GotoAddEmployee ();
-            String user = UUID.randomUUID().toString ();
-            String first = UUID.randomUUID().toString ();
-            String last = UUID.randomUUID().toString ();
-            newempl.AddEmployee (user, first, last);
-            Assert.assertTrue (nav.HasAddedEmployeeText ());
-            page = nav.DoLogout ();
-            Assert.assertTrue (page.HasLoginLink ());
+        LoginPage page = new LoginPage (driver);
+        EmployeesPage empl = page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        Assert.assertTrue (nav.HasLogoutLink ());
+        AddEmployeePage newempl = empl.GotoAddEmployee ();
+        String user = UUID.randomUUID().toString ();
+        String first = UUID.randomUUID().toString ();
+        String last = UUID.randomUUID().toString ();
+        newempl.AddEmployee (user, first, last);
+        Assert.assertTrue (nav.HasAddedEmployeeText ());
+        page = nav.DoLogout ();
+        Assert.assertTrue (page.HasLoginLink ());
     }
 
     @Test
     public void TestAddDepartment()
     {
-            LoginPage page = new LoginPage (driver);
-            page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            DepartmentsPage depts = nav.GotoDepartments ();
-            AddDepartmentPage addDept = depts.GotoAddDepartment ();
-            depts = addDept.AddDepartment ("The Investigators");
-            Assert.assertTrue (nav.HasAddedDepartmentText ());
-            Assert.assertNotNull (depts.FindDepartmentByName ("The Investigators"));
-            depts.TrashDepartment ("The Investigators");
-            // Assert.IsNull (depts.FindDepartmentByName ("The Investigators"));
-            page = nav.DoLogout ();
-            Assert.assertTrue (page.HasLoginLink ());
+        LoginPage page = new LoginPage (driver);
+        page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        DepartmentsPage depts = nav.GotoDepartments ();
+        AddDepartmentPage addDept = depts.GotoAddDepartment ();
+        depts = addDept.AddDepartment ("The Investigators");
+        Assert.assertTrue (nav.HasAddedDepartmentText ());
+        Assert.assertNotNull (depts.FindDepartmentByName ("The Investigators"));
+        depts.TrashDepartment ("The Investigators");
+        // Assert.IsNull (depts.FindDepartmentByName ("The Investigators"));
+        page = nav.DoLogout ();
+        Assert.assertTrue (page.HasLoginLink ());
     }
 
     @Test
     public void TestAddTitle()
     {
-            LoginPage page = new LoginPage (driver);
-            page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            TitlesPage titles = nav.GotoTitles ();
-            AddTitlePage addTitle = titles.GotoAddTitle();
-            titles = addTitle.AddTitle ("Agent");
-            Assert.assertTrue (nav.HasAddedTitleText ());
-            Assert.assertNotNull (titles.FindTitleByName ("Agent"));
-            titles.TrashTitle ("Agent");
-            // Assert.IsNull (titles.FindTitleByName ("Agent"));
-            page = nav.DoLogout ();
-            Assert.assertTrue (page.HasLoginLink ());
+        LoginPage page = new LoginPage (driver);
+        page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        TitlesPage titles = nav.GotoTitles ();
+        AddTitlePage addTitle = titles.GotoAddTitle();
+        titles = addTitle.AddTitle ("Agent");
+        Assert.assertTrue (nav.HasAddedTitleText ());
+        Assert.assertNotNull (titles.FindTitleByName ("Agent"));
+        titles.TrashTitle ("Agent");
+        // Assert.IsNull (titles.FindTitleByName ("Agent"));
+        page = nav.DoLogout ();
+        Assert.assertTrue (page.HasLoginLink ());
     }
     
     @Test(dataProvider="TestTimeOffData",dataProviderClass=BluesourceTestData.class)
@@ -162,12 +162,12 @@ public class BluesourceTests {
         ManageTimeOffPage timeOff = data.GotoManageTimeOff ();
         timeOff = timeOff.SetVacationInfo (start, end, type, reason, halfday);
         if (succeeds) {
-                WebElement time = timeOff.GetVacationInfo (start);
-                Assert.assertNotNull (time);
-                String vacationDays = time.findElement(By.cssSelector(".business-days")).getText();
-                timeOff.TrashVacationInfo (start);
-                Assert.assertTrue(Float.parseFloat(vacationDays) == days);
-                // Assert.IsNull (timeOff.GetVacationInfo (start));
+            WebElement time = timeOff.GetVacationInfo (start);
+            Assert.assertNotNull (time);
+            String vacationDays = time.findElement(By.cssSelector(".business-days")).getText();
+            timeOff.TrashVacationInfo (start);
+            Assert.assertTrue(Float.parseFloat(vacationDays) == days);
+            // Assert.IsNull (timeOff.GetVacationInfo (start));
         }
         page = nav.DoLogout ();
         Assert.assertTrue (page.HasLoginLink ());
@@ -176,45 +176,45 @@ public class BluesourceTests {
     @Test(dataProvider="TestTotalTimeOffData",dataProviderClass=BluesourceTestData.class)
     public void TestTotalVacationDays(String name)
     {
-            TimeOff.TimeOffLimits manageLimits, viewLimits, employeeDataLimits;
-            LoginPage page = new LoginPage (driver);
-            EmployeesPage empl = page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            empl.EnterInSearch (name);
-            EmployeeDataPage data = empl.SelectFirstMatchingEmployee ();
-            ManageTimeOffPage manageTimeOff = data.GotoManageTimeOff ();
-            manageLimits = manageTimeOff.GetTimeOffLimits ();
-            data = manageTimeOff.GoBack ();
-            ViewTimeOffPage viewTimeOff = data.GotoViewTimeOff ();
-            viewLimits = viewTimeOff.GetTimeOffLimits ();
-            Assert.assertTrue (manageLimits.equals(viewLimits));
-            data = viewTimeOff.GoBack ();
-            employeeDataLimits = data.GetTimeOffLimits ();
-            Assert.assertTrue (manageLimits.equals (employeeDataLimits));
-            page = nav.DoLogout ();
-            Assert.assertTrue (page.HasLoginLink ());
+        TimeOff.TimeOffLimits manageLimits, viewLimits, employeeDataLimits;
+        LoginPage page = new LoginPage (driver);
+        EmployeesPage empl = page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        empl.EnterInSearch (name);
+        EmployeeDataPage data = empl.SelectFirstMatchingEmployee ();
+        ManageTimeOffPage manageTimeOff = data.GotoManageTimeOff ();
+        manageLimits = manageTimeOff.GetTimeOffLimits ();
+        data = manageTimeOff.GoBack ();
+        ViewTimeOffPage viewTimeOff = data.GotoViewTimeOff ();
+        viewLimits = viewTimeOff.GetTimeOffLimits ();
+        Assert.assertTrue (manageLimits.equals(viewLimits));
+        data = viewTimeOff.GoBack ();
+        employeeDataLimits = data.GetTimeOffLimits ();
+        Assert.assertTrue (manageLimits.equals (employeeDataLimits));
+        page = nav.DoLogout ();
+        Assert.assertTrue (page.HasLoginLink ());
     }
 
     @Test(dataProvider="TestUsedTimeOffData",dataProviderClass=BluesourceTestData.class)
     public void TestUsedVacationDays(String name)
     {
-            TimeOff.TimeOffUsed manageUsed, viewUsed, employeeDataUsed;
-            LoginPage page = new LoginPage (driver);
-            EmployeesPage empl = page.DoLogin ("company.admin", "anything");
-            NavigationBar nav = new NavigationBar (driver);
-            empl.EnterInSearch (name);
-            EmployeeDataPage data = empl.SelectFirstMatchingEmployee ();
-            ManageTimeOffPage manageTimeOff = data.GotoManageTimeOff ();
-            manageUsed = manageTimeOff.GetTimeOffUsed ();
-            data = manageTimeOff.GoBack ();
-            ViewTimeOffPage viewTimeOff = data.GotoViewTimeOff ();
-            viewUsed = viewTimeOff.GetTimeOffUsed ();
-            Assert.assertTrue (manageUsed.equals(viewUsed));
-            data = viewTimeOff.GoBack ();
-            employeeDataUsed = data.GetTimeOffUsed ();
-            Assert.assertTrue (manageUsed.equals (employeeDataUsed));
-            page = nav.DoLogout ();
-            Assert.assertTrue (page.HasLoginLink ());
+        TimeOff.TimeOffUsed manageUsed, viewUsed, employeeDataUsed;
+        LoginPage page = new LoginPage (driver);
+        EmployeesPage empl = page.DoLogin ("company.admin", "anything");
+        NavigationBar nav = new NavigationBar (driver);
+        empl.EnterInSearch (name);
+        EmployeeDataPage data = empl.SelectFirstMatchingEmployee ();
+        ManageTimeOffPage manageTimeOff = data.GotoManageTimeOff ();
+        manageUsed = manageTimeOff.GetTimeOffUsed ();
+        data = manageTimeOff.GoBack ();
+        ViewTimeOffPage viewTimeOff = data.GotoViewTimeOff ();
+        viewUsed = viewTimeOff.GetTimeOffUsed ();
+        Assert.assertTrue (manageUsed.equals(viewUsed));
+        data = viewTimeOff.GoBack ();
+        employeeDataUsed = data.GetTimeOffUsed ();
+        Assert.assertTrue (manageUsed.equals (employeeDataUsed));
+        page = nav.DoLogout ();
+        Assert.assertTrue (page.HasLoginLink ());
     }
 
 }

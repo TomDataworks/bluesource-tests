@@ -37,7 +37,7 @@ public class NavigationBar extends BaseWebPage
         }
 
         public boolean HasLogoutLink() {
-                return SyncElement (By.xpath("//a[@href=\"/logout\"]"));
+                return SyncElement (logout);
         }
 
         public boolean HasAddedEmployeeText() {
@@ -53,8 +53,9 @@ public class NavigationBar extends BaseWebPage
         }
 
         public LoginPage DoLogout() {
-                logout.click();
-                return new LoginPage (driver);
+            SyncElement(logout);
+            logout.click();
+            return new LoginPage (driver);
         }
 
         public EmployeesPage GotoEmployees() {

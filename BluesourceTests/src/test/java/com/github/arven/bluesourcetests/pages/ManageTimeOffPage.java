@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -50,19 +51,24 @@ public class ManageTimeOffPage extends BaseWebPage
             super(driver);
         }
 
-        public ManageTimeOffPage SetVacationInfo( Date start, Date end, String type, String reason, boolean halfday ) {
+        public ManageTimeOffPage SetVacationInfo( Date start, Date end, String type, String reason, boolean halfday ) throws Exception {
                 Actions mouse = new Actions(driver);
                 
                 SyncElement (By.name ("new[vacation][start_date]"));
-                SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat fmt = new SimpleDateFormat("MMddyyyy");
                 
                 String start_s = fmt.format(start); //.ToString ("yyyy-MM-dd", CultureInfo.InvariantCulture);
                 String end_s = fmt.format(end); //.ToString ("yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-                start_date.clear ();
-                start_date.sendKeys (start_s);
-                end_date.clear ();
-                end_date.sendKeys (end_s);
+                
+                this.helper.setDate(start_date, start);
+                this.helper.setDate(end_date, end);
+                
+                //start_date.click();
+                //start_date.sendKeys(Keys.ARROW_LEFT, Keys.ARROW_LEFT, start_s);
+                
+                //end_date.click();
+                //end_date.sendKeys(Keys.ARROW_LEFT, Keys.ARROW_LEFT, end_s);
+                
                 vacation_type.findElement (By.xpath ("//option[contains(., \"" + type + "\")]")).click();
                 if (reason != null && !reason.isEmpty()) {
                         mouse.moveToElement (dropdown).build ().perform ();

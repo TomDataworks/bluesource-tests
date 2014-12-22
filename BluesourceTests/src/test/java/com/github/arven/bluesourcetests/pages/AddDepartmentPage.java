@@ -19,7 +19,7 @@ public class AddDepartmentPage extends BaseWebPage
     }
 
     public DepartmentsPage AddDepartment(String name) {
-        if (SyncElement (By.id("department_name"))) {
+        if (SyncElement (department_name)) {
                 department_name.sendKeys (name);
                 department_department_id.findElement (By.xpath ("//option[@value != '']")).click ();
                 department_name.submit ();
