@@ -20,17 +20,17 @@ public class DepartmentsPage extends BaseWebPage
             super(driver);
         }
 
-        public AddDepartmentPage GotoAddDepartment() {
+        public AddDepartmentPage gotoAddDepartment() {
                 addDepartment.click ();
                 return new AddDepartmentPage (driver);
         }
 
-        public WebElement FindDepartmentByName( String name ) {
+        public WebElement findDepartmentByName( String name ) {
                 return driver.findElement (By.xpath ("//li[contains(., '" + name + "')]"));
         }
 
         public DepartmentsPage TrashDepartment( String name ) {
-                FindDepartmentByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
+                findDepartmentByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
                 driver.switchTo ().alert ().accept ();
                 return new DepartmentsPage (driver);
         }

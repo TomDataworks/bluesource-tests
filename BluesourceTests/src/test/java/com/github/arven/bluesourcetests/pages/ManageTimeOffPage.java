@@ -51,7 +51,7 @@ public class ManageTimeOffPage extends BaseWebPage
             super(driver);
         }
 
-        public ManageTimeOffPage SetVacationInfo( Date start, Date end, String type, String reason, boolean halfday ) throws Exception {
+        public ManageTimeOffPage setVacationInfo( Date start, Date end, String type, String reason, boolean halfday ) throws Exception {
                 Actions mouse = new Actions(driver);
                 
                 SyncElement (By.name ("new[vacation][start_date]"));
@@ -62,12 +62,6 @@ public class ManageTimeOffPage extends BaseWebPage
                 
                 this.helper.setDate(start_date, start);
                 this.helper.setDate(end_date, end);
-                
-                //start_date.click();
-                //start_date.sendKeys(Keys.ARROW_LEFT, Keys.ARROW_LEFT, start_s);
-                
-                //end_date.click();
-                //end_date.sendKeys(Keys.ARROW_LEFT, Keys.ARROW_LEFT, end_s);
                 
                 vacation_type.findElement (By.xpath ("//option[contains(., \"" + type + "\")]")).click();
                 if (reason != null && !reason.isEmpty()) {
@@ -81,22 +75,22 @@ public class ManageTimeOffPage extends BaseWebPage
                 return new ManageTimeOffPage (driver);
         }
 
-        public WebElement GetVacationInfo( Date start ) {
+        public WebElement getVacationInfo( Date start ) {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             String start_s = fmt.format(start);
             return driver.findElement (By.xpath ("//input[@value = '" + start_s + "']/../.."));
         }
 
-        public void TrashVacationInfo( Date start ) {
-                GetVacationInfo(start).findElement (By.xpath("//a[@data-method = 'delete']")).click();
+        public void trashVacationInfo( Date start ) {
+                getVacationInfo(start).findElement (By.xpath("//a[@data-method = 'delete']")).click();
                 driver.switchTo().alert().accept();
         }
 
-        public Collection<WebElement> GetAllTimeOff() {
+        public Collection<WebElement> getAllTimeOff() {
                 return driver.findElements (By.xpath ("//tr/td/span"));
         }
 
-        public TimeOff.TimeOffLimits GetTimeOffLimits() {
+        public TimeOff.TimeOffLimits getTimeOffLimits() {
                 TimeOff.TimeOffLimits limits = new TimeOff.TimeOffLimits ();
                 //Console.WriteLine (vacation_summary.FindElement(By.XPath("span[position() > 1]")).Text);
                 limits.sick =  Float.parseFloat( StringUtils.split(StringUtils.split(vacation_summary.findElement (By.xpath("span[2]")).getText(), '/')[1], ' ')[0] );
@@ -105,7 +99,7 @@ public class ManageTimeOffPage extends BaseWebPage
                 return limits;
         }
 
-        public TimeOff.TimeOffUsed GetTimeOffUsed() {
+        public TimeOff.TimeOffUsed getTimeOffUsed() {
                 TimeOff.TimeOffUsed used = new TimeOff.TimeOffUsed ();
                 //Console.WriteLine (vacation_summary.FindElement(By.XPath("span[position() > 1]")).Text);
                 used.sick =  Float.parseFloat( StringUtils.split(vacation_summary.findElement (By.xpath("span[2]")).getText(), '/')[0] );
@@ -114,7 +108,7 @@ public class ManageTimeOffPage extends BaseWebPage
                 return used;
         }
 
-        public EmployeeDataPage GoBack() {
+        public EmployeeDataPage goBack() {
                 back_link.click ();
                 return new EmployeeDataPage (driver);
         }

@@ -28,23 +28,23 @@ public class EmployeesPage extends BaseWebPage
             super(driver);
         }
 
-        public AddEmployeePage GotoAddEmployee() {
+        public AddEmployeePage gotoAddEmployee() {
                 addEmployee.click ();
                 return new AddEmployeePage (driver);
         }
 
-        public EmployeesPage EnterInSearch(String name) {
+        public EmployeesPage enterInSearch(String name) {
                 SyncElement (By.cssSelector("#resource-content .ng-binding"));
                 search_bar.sendKeys(name);
                 return new EmployeesPage (driver);
         }
 
-        public Collection<WebElement> GetMatchingEmployees() {
+        public Collection<WebElement> getMatchingEmployees() {
                 return driver.findElements (By.cssSelector ("div#resource-content div table tbody tr.ng-scope a"));
         }
 
-        public EmployeeDataPage SelectFirstMatchingEmployee() {
-                for (WebElement we : GetMatchingEmployees()) {
+        public EmployeeDataPage selectFirstMatchingEmployee() {
+                for (WebElement we : getMatchingEmployees()) {
                         we.click(); break;
                 }
                 return new EmployeeDataPage(driver);

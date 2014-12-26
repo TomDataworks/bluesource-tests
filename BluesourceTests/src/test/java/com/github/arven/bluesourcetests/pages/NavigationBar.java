@@ -36,40 +36,40 @@ public class NavigationBar extends BaseWebPage
             super(driver);
         }
 
-        public boolean HasLogoutLink() {
+        public boolean hasLogoutLink() {
                 return SyncElement (logout);
         }
 
-        public boolean HasAddedEmployeeText() {
+        public boolean hasAddedEmployeeText() {
                 return SyncElement (By.xpath ("//div[contains(., \"Employee successfully created.\")]"));
         }
 
-        public boolean HasAddedDepartmentText() {
+        public boolean hasAddedDepartmentText() {
                 return SyncElement (By.xpath ("//div[contains(., \"Department successfully created.\")]"));
         }
 
-        public boolean HasAddedTitleText() {
+        public boolean hasAddedTitleText() {
                 return SyncElement (By.xpath ("//div[contains(., \"Title successfully created.\")]"));
         }
 
-        public LoginPage DoLogout() {
-            SyncElement(logout);
+        public LoginPage doLogout() {
+            SyncElement(By.xpath("//a[@href=\"/logout\"]"));
             logout.click();
             return new LoginPage (driver);
         }
 
-        public EmployeesPage GotoEmployees() {
+        public EmployeesPage gotoEmployees() {
                 employees.click (); 
                 return new EmployeesPage (driver);
         }
 
-        public DepartmentsPage GotoDepartments() {
+        public DepartmentsPage gotoDepartments() {
                 admin.click ();
                 departments.click ();
                 return new DepartmentsPage (driver);
         }
 
-        public TitlesPage GotoTitles() {
+        public TitlesPage gotoTitles() {
                 admin.click ();
                 titles.click ();
                 return new TitlesPage (driver);

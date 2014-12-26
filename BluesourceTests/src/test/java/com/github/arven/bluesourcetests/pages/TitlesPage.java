@@ -20,17 +20,17 @@ public class TitlesPage extends BaseWebPage
         @FindBy(how = How.LINK_TEXT, using = "New Title")
         private WebElement addTitle;
 
-        public AddTitlePage GotoAddTitle() {
+        public AddTitlePage gotoAddTitle() {
                 addTitle.click ();
                 return new AddTitlePage (driver);
         }
 
-        public WebElement FindTitleByName( String name ) {
+        public WebElement findTitleByName( String name ) {
                 return driver.findElement (By.xpath ("//tr[contains(., '" + name + "')]"));
         }
 
-        public TitlesPage TrashTitle( String name ) {
-                FindTitleByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
+        public TitlesPage trashTitle( String name ) {
+                findTitleByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
                 driver.switchTo ().alert ().accept ();
                 return new TitlesPage (driver);
         }

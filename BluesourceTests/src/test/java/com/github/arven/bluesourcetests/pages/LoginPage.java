@@ -23,7 +23,7 @@ public class LoginPage extends BaseWebPage
         super(driver);
     }
 
-    public EmployeesPage DoLogin(String username, String password)
+    public EmployeesPage doLogin(String username, String password)
     {
             this.username.sendKeys(username);
             this.password.sendKeys(password);
@@ -32,7 +32,7 @@ public class LoginPage extends BaseWebPage
             return new EmployeesPage(driver);
     }
 
-    public boolean HasLoginLink() {
+    public boolean hasLoginLink() {
             return SyncElement (By.linkText("Can't log in?"));
     }
 }

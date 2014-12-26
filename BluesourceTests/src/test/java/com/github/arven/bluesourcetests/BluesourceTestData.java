@@ -30,34 +30,19 @@ public class BluesourceTestData
             File csv = new File("C:\\Users\\brian.becker\\Git\\bluesource-tests\\BluesourceTests\\target\\test-classes\\com\\github\\arven\\bluesourcetests\\data\\bluesource-timeoff-test.csv");
             final CSVParser parser = CSVParser.parse(csv, StandardCharsets.US_ASCII, CSVFormat.EXCEL.withHeader());
 
-            return new Iterator<Object[]>() {
-                private final Iterator<CSVRecord> iter = parser.iterator();
-
+            return new IteratorMap<CSVRecord, Object[]>(parser) {
                 @Override
-                public boolean hasNext() {
-                    return iter.hasNext();
-                }
-
-                @Override
-                public Object[] next() {
-                    CSVRecord n = iter.next();
-                    //SimpleDateFo//rmat df = new SimpleDateFormat("MM/dd/yyyy");
+                public Object[] map(CSVRecord in) {
                     return new Object[] {
-                        n.get("Name"),
-                        n.get("Start"),
-                        n.get("End"),
-                        n.get("Type"),
-                        n.get("Reason"),
-                        Boolean.parseBoolean(n.get("Half-Day")),
-                        Float.parseFloat(n.get("Days")),
-                        Boolean.parseBoolean(n.get("Succeeds"))
+                        in.get("Name"),
+                        in.get("Start"),
+                        in.get("End"),
+                        in.get("Type"),
+                        in.get("Reason"),
+                        Boolean.parseBoolean(in.get("Half-Day")),
+                        Float.parseFloat(in.get("Days")),
+                        Boolean.parseBoolean(in.get("Succeeds"))
                     };
-                }
-
-                @Override
-                public void remove() {
-                    // null operation
-                    throw new UnsupportedOperationException("Read-only collection"); //To change body of generated methods, choose Tools | Templates.
                 }
             };
         }

@@ -17,7 +17,7 @@ public class AddTitlePage extends BaseWebPage
         super(driver);
     }
 
-    public TitlesPage AddTitle(String name) {
+    public TitlesPage addTitle(String name) {
         if (SyncElement (title_name)) {
             title_name.sendKeys (name);
             title_name.submit ();

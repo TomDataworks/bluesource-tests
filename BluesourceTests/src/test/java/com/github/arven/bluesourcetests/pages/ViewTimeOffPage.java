@@ -20,7 +20,7 @@ public class ViewTimeOffPage extends BaseWebPage {
             super(driver);
         }
 
-        public TimeOff.TimeOffLimits GetTimeOffLimits() {
+        public TimeOff.TimeOffLimits getTimeOffLimits() {
                 TimeOff.TimeOffLimits limits = new TimeOff.TimeOffLimits ();
                 limits.sick =  Float.parseFloat( StringUtils.split(StringUtils.split(vacation_summary.findElement (By.xpath("span[2]")).getText(), '/')[1], ' ')[0] );
                 limits.vacation = Float.parseFloat( StringUtils.split(StringUtils.split(vacation_summary.findElement (By.xpath ("span[3]")).getText(), '/')[1], ' ')[0] );
@@ -28,7 +28,7 @@ public class ViewTimeOffPage extends BaseWebPage {
                 return limits;
         }
 
-        public TimeOff.TimeOffUsed GetTimeOffUsed() {
+        public TimeOff.TimeOffUsed getTimeOffUsed() {
                 TimeOff.TimeOffUsed used = new TimeOff.TimeOffUsed ();
                 //Console.WriteLine (vacation_summary.FindElement(By.XPath("span[position() > 1]")).Text);
                 used.sick =  Float.parseFloat( StringUtils.split(vacation_summary.findElement (By.xpath("span[2]")).getText(), '/')[0] );
@@ -37,7 +37,7 @@ public class ViewTimeOffPage extends BaseWebPage {
                 return used;
         }
 
-        public EmployeeDataPage GoBack() {
+        public EmployeeDataPage goBack() {
                 driver.navigate ().back ();
                 return new EmployeeDataPage (driver);
         }

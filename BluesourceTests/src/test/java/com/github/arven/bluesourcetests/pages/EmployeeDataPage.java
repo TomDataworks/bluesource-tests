@@ -31,18 +31,18 @@ public class EmployeeDataPage extends BaseWebPage
             super(driver);
         }
 
-        public ManageTimeOffPage GotoManageTimeOff() {
+        public ManageTimeOffPage gotoManageTimeOff() {
             // SyncElement (By.XPath ("//div/h4[contains(., \"Time Off Info\")]/../div/a[contains(., \"Manage\")]"));
             manageTimeOff.click ();
             return new ManageTimeOffPage (driver);
         }
 
-        public ViewTimeOffPage GotoViewTimeOff() {
+        public ViewTimeOffPage gotoViewTimeOff() {
             viewTimeOff.click ();
             return new ViewTimeOffPage (driver);
         }
 
-        public TimeOff.TimeOffLimits GetTimeOffLimits() {
+        public TimeOff.TimeOffLimits getTimeOffLimits() {
             TimeOff.TimeOffLimits used = new TimeOff.TimeOffLimits ();
             //Console.WriteLine (vacation_summary.FindElement(By.XPath("span[position() > 1]")).Text);
             used.sick =  Float.parseFloat( StringUtils.split(vacation_summary.findElement (By.xpath("div/table/tbody/tr[1]/td[2]")).getText(), '/')[1] );
@@ -51,7 +51,7 @@ public class EmployeeDataPage extends BaseWebPage
             return used;
         }
 
-        public TimeOff.TimeOffUsed GetTimeOffUsed() {
+        public TimeOff.TimeOffUsed getTimeOffUsed() {
             TimeOff.TimeOffUsed limits = new TimeOff.TimeOffUsed ();
             //Console.WriteLine (vacation_summary.FindElement(By.XPath("span[position() > 1]")).Text);
             limits.sick =  Float.parseFloat( StringUtils.split(vacation_summary.findElement (By.xpath("div/table/tbody/tr[1]/td[2]")).getText(), '/')[0] );
