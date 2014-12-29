@@ -5,85 +5,21 @@
  */
 package com.github.arven.bluesourcetests;
 
-import com.github.arven.bluesourcetests.pages.AddDepartmentPage;
-import com.github.arven.bluesourcetests.pages.AddEmployeePage;
-import com.github.arven.bluesourcetests.pages.AddTitlePage;
-import com.github.arven.bluesourcetests.pages.DepartmentsPage;
-import com.github.arven.bluesourcetests.pages.EmployeeDataPage;
-import com.github.arven.bluesourcetests.pages.EmployeesPage;
-import com.github.arven.bluesourcetests.pages.LoginPage;
-import com.github.arven.bluesourcetests.pages.ManageTimeOffPage;
-import com.github.arven.bluesourcetests.pages.NavigationBar;
-import com.github.arven.bluesourcetests.pages.TimeOff;
-import com.github.arven.bluesourcetests.pages.TitlesPage;
-import com.github.arven.bluesourcetests.pages.ViewTimeOffPage;
+import com.github.arven.bluesourcetests.pages.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.Optional;
 
 /**
- *
+ * Tests for the BlueSource Web Application
+ * 
  * @author brian.becker
  */
-public class BluesourceTests {
-    private static WebDriver driver;
-    
-    public BluesourceTests() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-
-    @Parameters("browser")
-    @BeforeClass
-    public static void setUpClass(@Optional String browser) throws Exception {
-        if(browser == null)
-            browser = "org.openqa.selenium.firefox.FirefoxDriver";
-        driver = (WebDriver) Class.forName(browser).newInstance();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-        driver.navigate().to("http://bluesourcestaging.herokuapp.com/login");
-        //ng = new ByAngular((JavascriptExecutor) driver);
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        driver.quit();
-    }
-
-    @BeforeMethod
-    public void setUpMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void tearDownMethod(ITestResult result) throws Exception {
-        if (result.getStatus() == ITestResult.FAILURE)
-        {
-            NavigationBar nav = new NavigationBar (driver);
-            if (nav.hasLogoutLink ()) {
-                LoginPage page = nav.doLogout ();
-            }
-        }
-    }
-
-    //NEWTESTS
+public class BluesourceTests extends BaseWebTest {
 
     @Test
     public void testLoginLogout()
@@ -109,6 +45,9 @@ public class BluesourceTests {
         String last = UUID.randomUUID().toString ();
         newempl.AddEmployee (user, first, last);
         Assert.assertTrue (nav.hasAddedEmployeeText ());
+        empl.enterInSearch(first + " " + last);
+        EmployeeDataPage data = empl.selectFirstMatchingEmployee();
+        data.SyncElement(By.cssSelector("#content > h1"));
         page = nav.doLogout ();
         Assert.assertTrue (page.hasLoginLink ());
     }
@@ -162,12 +101,9 @@ public class BluesourceTests {
         ManageTimeOffPage timeOff = data.gotoManageTimeOff ();
         timeOff = timeOff.setVacationInfo (start, end, type, reason, halfday);
         if (succeeds) {
-            WebElement time = timeOff.getVacationInfo (start);
-            Assert.assertNotNull (time);
-            String vacationDays = time.findElement(By.cssSelector(".business-days")).getText();
+            float time = timeOff.getVacationDays (start);
             timeOff.trashVacationInfo (start);
-            Assert.assertTrue(Float.parseFloat(vacationDays) == days);
-            // Assert.IsNull (timeOff.getVacationInfo (start));
+            Assert.assertTrue(time == days);
         }
         page = nav.doLogout ();
         Assert.assertTrue (page.hasLoginLink ());

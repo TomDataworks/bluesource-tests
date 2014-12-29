@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.testng.Assert;
 
 /**
  *
@@ -75,10 +76,16 @@ public class ManageTimeOffPage extends BaseWebPage
                 return new ManageTimeOffPage (driver);
         }
 
-        public WebElement getVacationInfo( Date start ) {
+        private WebElement getVacationInfo( Date start ) {
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
             String start_s = fmt.format(start);
             return driver.findElement (By.xpath ("//input[@value = '" + start_s + "']/../.."));
+        }
+        
+        public float getVacationDays( Date start ) {
+            WebElement time = this.getVacationInfo (start);
+            String vacationDays = time.findElement(By.cssSelector(".business-days")).getText();
+            return Float.parseFloat(vacationDays);
         }
 
         public void trashVacationInfo( Date start ) {

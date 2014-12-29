@@ -7,7 +7,6 @@ package com.github.arven.bluesourcetests;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 /**
