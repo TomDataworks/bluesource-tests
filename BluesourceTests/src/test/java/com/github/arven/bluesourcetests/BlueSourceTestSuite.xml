@@ -18,7 +18,7 @@
     </test>
     -->
     
-    <test name="com.github.arven.bluesourcetests firefox">
+    <!-- <test name="com.github.arven.bluesourcetests firefox">
         <parameter name="browser" value="org.openqa.selenium.firefox.FirefoxDriver" />
         <packages>
             <package name="com.github.arven.bluesourcetests"/>
@@ -30,13 +30,13 @@
         <packages>
             <package name="com.github.arven.bluesourcetests"/>
         </packages>
-    </test>
+    </test> -->
     
-    <!-- <test name="com.github.arven.bluesourcetests ie">
+    <test name="com.github.arven.bluesourcetests ie">
         <parameter name="browser" value="org.openqa.selenium.ie.InternetExplorerDriver" />
         <packages>
             <package name="com.github.arven.bluesourcetests"/>
         </packages>
-    </test> -->
+    </test>
 
 </suite>

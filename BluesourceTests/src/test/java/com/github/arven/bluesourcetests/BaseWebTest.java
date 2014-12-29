@@ -26,10 +26,13 @@ import org.testng.annotations.Parameters;
 public class BaseWebTest implements ITest {
     protected static WebDriver driver;
     private String mTestCaseName = "";
+    private static String browserName = "";
     
     @BeforeMethod(alwaysRun = true)
     public void setUpMethod(Method m, Object[] data) throws Exception {
         StringBuilder b = new StringBuilder();
+        b.append(browserName);
+        b.append(": ");
         b.append(m.getName()).append("(");
         for(int i = 0; i < data.length; i++) {
             b.append(data[i].toString());
@@ -45,6 +48,9 @@ public class BaseWebTest implements ITest {
     public static void setUpClass(@Optional String browser) throws Exception {
         if(browser == null)
             browser = "org.openqa.selenium.firefox.FirefoxDriver";
+        
+        browserName = browser.split("\\.")[3];
+        
         driver = (WebDriver) Class.forName(browser).newInstance();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
