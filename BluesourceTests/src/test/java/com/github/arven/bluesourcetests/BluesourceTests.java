@@ -65,6 +65,7 @@ public class BluesourceTests extends BaseWebTest {
         Assert.assertNotNull (depts.findDepartmentByName ("The Investigators"));
         depts.TrashDepartment ("The Investigators");
         // Assert.IsNull (depts.findDepartmentByName ("The Investigators"));
+        Assert.assertTrue(nav.hasDeletedDepartmentText());
         page = nav.doLogout ();
         Assert.assertTrue (page.hasLoginLink ());
     }
@@ -81,6 +82,7 @@ public class BluesourceTests extends BaseWebTest {
         Assert.assertTrue (nav.hasAddedTitleText ());
         Assert.assertNotNull (titles.findTitleByName ("Agent"));
         titles.trashTitle ("Agent");
+        Assert.assertTrue(nav.hasDeletedTitleText());
         // Assert.IsNull (titles.findTitleByName ("Agent"));
         page = nav.doLogout ();
         Assert.assertTrue (page.hasLoginLink ());
@@ -101,9 +103,13 @@ public class BluesourceTests extends BaseWebTest {
         ManageTimeOffPage timeOff = data.gotoManageTimeOff ();
         timeOff = timeOff.setVacationInfo (start, end, type, reason, halfday);
         if (succeeds) {
+            Assert.assertTrue(nav.hasAddedTimeOffText());
             float time = timeOff.getVacationDays (start);
             timeOff.trashVacationInfo (start);
+            Assert.assertTrue(nav.hasDeletedTimeOffText());
             Assert.assertTrue(time == days);
+        } else {
+            Assert.assertTrue(nav.hasFailureCondition());
         }
         page = nav.doLogout ();
         Assert.assertTrue (page.hasLoginLink ());

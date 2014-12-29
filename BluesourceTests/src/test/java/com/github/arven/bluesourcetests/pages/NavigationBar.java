@@ -37,19 +37,39 @@ public class NavigationBar extends BaseWebPage
         }
 
         public boolean hasLogoutLink() {
-                return SyncElement (logout);
+            return SyncElement (logout);
         }
 
         public boolean hasAddedEmployeeText() {
-                return SyncElement (By.xpath ("//div[contains(., \"Employee successfully created.\")]"));
+            return SyncElement (By.xpath ("//div[contains(., \"Employee successfully created.\")]"));
         }
 
         public boolean hasAddedDepartmentText() {
-                return SyncElement (By.xpath ("//div[contains(., \"Department successfully created.\")]"));
+            return SyncElement (By.xpath ("//div[contains(., \"Department successfully created.\")]"));
+        }
+        
+        public boolean hasDeletedDepartmentText() {
+            return SyncElement (By.xpath ("//div[contains(., \"Department successfully deleted.\")]"));
         }
 
         public boolean hasAddedTitleText() {
-                return SyncElement (By.xpath ("//div[contains(., \"Title successfully created.\")]"));
+            return SyncElement (By.xpath ("//div[contains(., \"Title successfully created.\")]"));
+        }
+        
+        public boolean hasDeletedTitleText() {
+            return SyncElement (By.xpath ("//div[contains(., \"Title successfully deleted.\")]"));
+        }
+        
+        public boolean hasAddedTimeOffText() {
+            return SyncElement (By.xpath ("//div[contains(., \"Time off successfully created.\")]"));
+        }
+        
+        public boolean hasDeletedTimeOffText() {
+            return SyncElement (By.xpath ("//div[contains(., \"Time off successfully deleted.\")]"));
+        }
+        
+        public boolean hasFailureCondition() {
+            return SyncElement(By.cssSelector(".alert.alert-danger.alert-dismissable"));
         }
 
         public LoginPage doLogout() {
