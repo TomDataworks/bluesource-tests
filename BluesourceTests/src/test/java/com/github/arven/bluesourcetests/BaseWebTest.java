@@ -48,14 +48,15 @@ public class BaseWebTest implements ITest {
     public static void setUpClass(@Optional String browser) throws Exception {
         if(browser == null)
             browser = "org.openqa.selenium.firefox.FirefoxDriver";
-        
-        browserName = browser.split("\\.")[3];
-        
+
         driver = (WebDriver) Class.forName(browser).newInstance();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
         driver.navigate().to("http://bluesourcestaging.herokuapp.com/login");
         //ng = new ByAngular((JavascriptExecutor) driver);
+        
+        //browserName = browser.split("\\.")[3];
+        browserName = driver.getClass().getSimpleName();
     }
 
     @AfterClass

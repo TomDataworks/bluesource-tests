@@ -90,7 +90,7 @@ public class ManageTimeOffPage extends BaseWebPage
 
         public void trashVacationInfo( Date start ) {
                 getVacationInfo(start).findElement (By.xpath("//a[@data-method = 'delete']")).click();
-                driver.switchTo().alert().accept();
+                this.waitAndAcceptAlert();
         }
 
         public Collection<WebElement> getAllTimeOff() {

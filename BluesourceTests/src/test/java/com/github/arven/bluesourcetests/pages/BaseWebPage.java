@@ -7,21 +7,13 @@ package com.github.arven.bluesourcetests.pages;
 
 import com.github.arven.bluesourcetests.WebHelper;
 import com.github.arven.bluesourcetests.WebHelperFactory;
-import com.google.common.base.Function;
-import java.lang.reflect.Field;
-import java.lang.annotation.Annotation;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-//import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -54,5 +46,15 @@ public class BaseWebPage
             wait.ignoring(NoSuchElementException.class);
             WebElement element = wait.until(ExpectedConditions.elementToBeClickable(el));
             return element.isEnabled();
+        }
+        
+        public void waitAndAcceptAlert() {
+            boolean waiting = true;
+            while(waiting) {
+                try {
+                    driver.switchTo().alert().accept();
+                    waiting = false;
+                } catch (NoAlertPresentException ex) {}
+            }
         }
 }

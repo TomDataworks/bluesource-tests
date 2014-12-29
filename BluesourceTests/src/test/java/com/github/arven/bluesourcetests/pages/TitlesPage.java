@@ -31,7 +31,7 @@ public class TitlesPage extends BaseWebPage
 
         public TitlesPage trashTitle( String name ) {
                 findTitleByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
-                driver.switchTo ().alert ().accept ();
+                this.waitAndAcceptAlert();
                 return new TitlesPage (driver);
         }
 }

@@ -15,6 +15,8 @@ public class WebHelperFactory {
     public static WebHelper getFromDriver(WebDriver drv) {
         if(drv.getClass() == org.openqa.selenium.chrome.ChromeDriver.class ) {
             return new ChromeWebHelper();
+        } else if(drv.getClass() == org.openqa.selenium.ie.InternetExplorerDriver.class ) {
+            return new IEWebHelper();
         } else {
             return new FirefoxWebHelper();
         }

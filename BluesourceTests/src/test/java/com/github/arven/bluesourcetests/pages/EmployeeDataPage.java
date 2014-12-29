@@ -32,12 +32,13 @@ public class EmployeeDataPage extends BaseWebPage
         }
 
         public ManageTimeOffPage gotoManageTimeOff() {
-            // SyncElement (By.XPath ("//div/h4[contains(., \"Time Off Info\")]/../div/a[contains(., \"Manage\")]"));
+            SyncElement (By.xpath ("//div/h4[contains(., \"Time Off Info\")]/../div/a[contains(., \"Manage\")]"));
             manageTimeOff.click ();
             return new ManageTimeOffPage (driver);
         }
 
         public ViewTimeOffPage gotoViewTimeOff() {
+            SyncElement (By.xpath ("//div/h4[contains(., \"Time Off Info\")]/../div/a[contains(., \"View\")]"));
             viewTimeOff.click ();
             return new ViewTimeOffPage (driver);
         }

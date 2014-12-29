@@ -31,7 +31,7 @@ public class DepartmentsPage extends BaseWebPage
 
         public DepartmentsPage TrashDepartment( String name ) {
                 findDepartmentByName(name).findElement(By.cssSelector("span.glyphicon.glyphicon-trash")).click();
-                driver.switchTo ().alert ().accept ();
+                this.waitAndAcceptAlert();
                 return new DepartmentsPage (driver);
         }
 }
